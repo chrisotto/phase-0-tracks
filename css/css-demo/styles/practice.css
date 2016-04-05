@@ -9,6 +9,10 @@
       margin-bottom: 10px;
 }
 
+.job:last-of-type {
+    border-bottom:  thick solid brown;
+}
+
 .list-small {
     font-size: .8em;
 }
