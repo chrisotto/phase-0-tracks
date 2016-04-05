@@ -1,0 +1,22 @@
+#contact-info {
+               font-size: .8em;
+}
+
+.job {
+      background-color: #e9e5dc;
+      border-radius: 50px/15px;
+      padding: 10px;
+      margin-bottom: 10px;
+}
+
+.job:last-of-type {
+    border-bottom:  thick solid brown;
+}
+
+.list-small {
+    font-size: .8em;
+}
+
+section h2 {
+    font-family:  courier;
+}
