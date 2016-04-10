@@ -13,9 +13,20 @@ cite {
   margin-top: 10px;
 }
 
+#external-links {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+}
+
 #external-links ul {
   list-style-type: none;
   padding-left: 0px;
+}
+
+#main-pane {
+  display: inline-block;
+  width: 756px;
 }
 
 /* you're welcome to edit the
