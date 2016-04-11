@@ -47,3 +47,21 @@ figcaption {
   font-style: italic;
   text-align: right;
 }
+
+@media screen and (max-width: 700px) {
+  h1 {
+    font-size: 150%;
+  }
+}
+
+@media screen and (max-width: 542px) {
+  #external-links {
+    display: block;
+    vertical-align: baseline;
+    width: auto;
+  }
+  #main-pane {
+    display: block;
+    width: auto;
+  }
+}
