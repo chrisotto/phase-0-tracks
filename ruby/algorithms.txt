@@ -1,0 +1,29 @@
+Use an Elevator
+* Ask me to which floor you should go
+* Go to the elevator
+* Determine on which floor you currently are
+* If the floor on which you currently are is not the floor to which you are going, then
+  * If the floor on which you currently are is lower than the floor to which you are going, press the up button
+    * otherwise, press the down button
+  * Wait until an elevator door is open, the elevator is going in the direction you are trying to go, no one is currently exiting the elevator and there is room for you to fit into the elevator
+  * Enter the elevator
+  * If the floor to which you are going is not already selected or if you can't tell, then
+    * If you can do so without inappropriately disturbing the other passengers in the elevator, press the button with the number of the floor to which you are going
+      * otherwise, until the floor to which you are going is selected, ask the other passengers to select the floor to which you are going and wait three seconds
+  * Wait until the elevator arrives at the floor to which you are going and the elevator door is open
+  * Politely and safely exit the elevator, taking care not to knock into the other passengers in the process
+* Tell me that you've arrived
+
+Put on Underpants
+* When you are naked
+  * Go to your dresser
+  * Open your underwear drawer
+  * Remove one pair of underpants
+  * If the underpants are inside out, right side them
+  * Identify the waistband
+  * Identify the front and back
+  * Hold the underpants in front of you by the waistband with the back side closest to you, your left hand holding the left side of the waistband and your right hand holding the right side of the waistband
+  * Balance on one foot and put your other foot through the hole for your leg that is closest to that leg
+  * Balance on the other foot and put your first foot through the hole for your leg that is closest to that leg
+  * Pull the underpants up by the waistband until the waistband reaches your waist
+  * Let go of your underpants
