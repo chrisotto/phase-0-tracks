@@ -64,18 +64,28 @@ count = count + 1
     enroll_in_health_insurance = false
   end
 
+  puts "Do you have any allergies?  Please enter one at a time.  Type \"done\" when you are done."
+  allergies = gets.chomp
+  until ["sunshine","done"].include? allergies
+    allergies = gets.chomp
+  end
+
   puts
 
-  if ["Drake Cula","Tu Fang"].include? name
-    puts "Definitely a vampire."
-  elsif age.between?(Time.now.year - year_of_birth - 1, Time.now.year - year_of_birth) && (order_garlic_bread || enroll_in_health_insurance)
-    puts "Probably not a vampire."
-  elsif !age.between?(Time.now.year - year_of_birth - 1, Time.now.year - year_of_birth) && !(order_garlic_bread == enroll_in_health_insurance)
+  if allergies == "sunshine"
     puts "Probably a vampire."
-  elsif !age.between?(Time.now.year - year_of_birth - 1, Time.now.year - year_of_birth) && !order_garlic_bread && !enroll_in_health_insurance
-    puts "Almost certainly a vampire."
   else
-    puts "Results inconclusive."
+    if ["Drake Cula","Tu Fang"].include? name
+      puts "Definitely a vampire."
+    elsif age.between?(Time.now.year - year_of_birth - 1, Time.now.year - year_of_birth) && (order_garlic_bread || enroll_in_health_insurance)
+      puts "Probably not a vampire."
+    elsif !age.between?(Time.now.year - year_of_birth - 1, Time.now.year - year_of_birth) && !(order_garlic_bread == enroll_in_health_insurance)
+      puts "Probably a vampire."
+    elsif !age.between?(Time.now.year - year_of_birth - 1, Time.now.year - year_of_birth) && !order_garlic_bread && !enroll_in_health_insurance
+      puts "Almost certainly a vampire."
+    else
+      puts "Results inconclusive."
+    end
   end
 
 end
