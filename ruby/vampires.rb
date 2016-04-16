@@ -92,3 +92,5 @@ end
 
 puts
 puts "#{count} new employees have been processed."
+puts
+puts "Actually, never mind!  What do these questions have to do with anything?  Let's all be friends."
