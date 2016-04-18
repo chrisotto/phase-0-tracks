@@ -57,3 +57,6 @@ puts "encrypt(\"abc\") should return \"bcd\":  #{encrypt("abc")}"
 puts "encrypt(\"zed\") should return \"afe\":  #{encrypt("zed")}"
 puts "decrypt(\"bcd\") should return \"abc\":  #{decrypt("bcd")}"
 puts "decrypt(\"afe\") should return \"zed\":  #{decrypt("afe")}"
+
+# nested call works because the decypt method is taking as its input the output of the encypt method, so the encrypt method encrypts the input, and then the decrypt method decrypts it back to its original value.
+puts decrypt(encrypt("swordfish"))
