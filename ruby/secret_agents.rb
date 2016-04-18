@@ -1,14 +1,14 @@
 # encyrpt pseudocode
 #
 # loop through each character in the sting "abc"
-# if its a lower case letter advance by one
+# if its a lowercase letter advance by one
 # if not a letter leave it alone
 # advance counter by 1
 
 def encrypt(message)
   i = 0
   while i < message.length
-    if ("a"..."z").include? message[i]
+    if ("a".."y").include? message[i]
       message[i] = message[i].next!
     elsif message[i] == "z"
       message[i] = "a"
@@ -30,33 +30,60 @@ end
 
 def decrypt(message)
   alphabet = "abcdefghijklmnopqrstuvwxyz"
-  x = 0
-  while x < message.length
-    if ("a"..."z").include? message[x]
-      #      message[x] = alphabet[alphabet.index(message[x]) - 1]
-      index_in_alphabet = alphabet.index(message[x])
+  i = 0
+  while i < message.length
+    if ("b".."z").include? message[i]
+      # message[i] = alphabet[alphabet.index(message[i]) - 1]
+      index_in_alphabet = alphabet.index(message[i])
       index_in_alphabet -= 1
-      message[x] = alphabet[index_in_alphabet]
+      message[i] = alphabet[index_in_alphabet]
     elsif message[i] == "a"
       message[i] = "z"
     end
-    x += 1
+    i += 1
   end
   message
 end
 
-puts "submit message to be decoded:"
-message = gets.chomp
-puts message
-encrypted_message = encrypt(message)
-puts encrypted_message
-decrypted_message = decrypt(encrypted_message)
-puts decrypted_message
+# Asks a secret agent (the user) whether they would like to decrypt or encrypt a password
+# until user respond with either encrypt or decrypt, ask for decrypt or encrypt
+# Asks them for the password
+# Conducts the requested operation, prints the result to the screen, and exits
 
-puts "encrypt(\"abc\") should return \"bcd\":  #{encrypt("abc")}"
-puts "encrypt(\"zed\") should return \"afe\":  #{encrypt("zed")}"
-puts "decrypt(\"bcd\") should return \"abc\":  #{decrypt("bcd")}"
-puts "decrypt(\"afe\") should return \"zed\":  #{decrypt("afe")}"
+puts "Would you like to decrypt or encrypt a password?"
+action = gets.chomp
+until ["decrypt","encrypt"].include? action
+  puts "Please enter decrypt or encrypt."
+  action = gets.chomp
+end
+puts "Please enter the password to be #{action}ed:"
+password = gets.chomp
+if action == "decrypt"
+  puts decrypt(password)
+else
+  puts encrypt(password)
+end
 
-# nested call works because the decypt method is taking as its input the output of the encypt method, so the encrypt method encrypts the input, and then the decrypt method decrypts it back to its original value.
-puts decrypt(encrypt("swordfish"))
+# if action == "decrypt"
+#
+# elsif gets.chomp == "encrypt"
+# else
+# end
+#
+# password = gets.chomp
+
+# puts "submit message to be decoded:"
+# message = gets.chomp
+# puts message
+# encrypted_message = encrypt(message)
+# puts encrypted_message
+# decrypted_message = decrypt(encrypted_message)
+# puts decrypted_message
+#
+# puts "encrypt(\"abc\") should return \"bcd\":  #{encrypt("abc")}"
+# puts "encrypt(\"zed\") should return \"afe\":  #{encrypt("zed")}"
+# puts "decrypt(\"bcd\") should return \"abc\":  #{decrypt("bcd")}"
+# puts "decrypt(\"afe\") should return \"zed\":  #{decrypt("afe")}"
+#
+# # nested call works because the decypt method is taking as its input the output of the encypt method, so the encrypt method encrypts the input, and then the decrypt method decrypts it back to its original value.
+# puts decrypt(encrypt("swordfish"))
