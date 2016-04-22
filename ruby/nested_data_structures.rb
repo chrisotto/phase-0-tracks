@@ -18,6 +18,7 @@ san_francisco = {
     ]
   },
   potrero_hill: {
+    pretty_name: "Potrero Hill",
     restaurants: [
       "Chez Maman",
       "Plow",
@@ -38,3 +39,13 @@ san_francisco = {
   pacific_heights: {},
   sunset: {}
 }
+
+print "SoMa restaurants include "
+san_francisco[:soma][:restaurants].each {|restaurant| print restaurant, ", "}
+puts "and others..."
+
+print "In the Mission, you can find "
+san_francisco[:mission].each_key {|establishment| print establishment, ", "}
+puts "and more..."
+
+puts "#{san_francisco[:potrero_hill][:restaurants][1]} can be found in #{san_francisco[:potrero_hill][:pretty_name]}"
