@@ -40,8 +40,19 @@ puts "Please enter client details:"
 client_details.each_key{|key| client_details[key] = get_value(key,client_details_data_types[key])}
 # Print the client_details hash
 puts client_details
+
 # Prompt the user to update a client detail by typing its key (or "none" to skip)
-# If the user types a key, collect the new value for that client detail (key)
-# Elsif the user types anything other than "none"
-  # Leave error handling for another day
-# Print the hash
+# TBD:  Leave looping and error handling for another day
+puts "To update a value, type its key.  Type \"none\" when done."
+key = gets.chomp
+# If the user types a key
+if client_details.has_key?(key.to_sym)
+  key = key.to_sym
+  # lookup the appropriate data type for that key
+  # get the value for the key
+  # put the value for the key into the client_details hash
+  print "Please update "
+  client_details[key] = get_value(key,client_details_data_types[key])
+end
+# Print the client_details hash
+puts client_details
