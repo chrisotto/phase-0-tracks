@@ -50,11 +50,13 @@ end
 
 puts "Welcome to the Dev Bootcamp fake name generator for secret agents\n"
 real_name = ""
+aliases = {}
 until real_name.downcase == "quit"
   print "Real name:  "
   real_name = gets.chomp
   if !["","quit"].include?(real_name.downcase)
-    fake_name = make_fake_full_name(real_name)
-    puts "Fake name:  #{fake_name}"
+    aliases[real_name] = make_fake_full_name(real_name)
+    puts "Fake name => #{aliases[real_name]}"
   end
 end
+aliases.each {|real_name, fake_name| puts "#{real_name} is also known as #{fake_name}"}
