@@ -1,4 +1,5 @@
 # create a method that takes a lowercase vowel and returns the next vowel
+# USAGE NOTES:  this method will throw an error if it is passed something other than a vowel ('aeiou')
 def next_vowel(vowel)
   'aeiou'[('aeiou'.index(vowel) + 1) % 'aeiou'.length]
 end
@@ -47,4 +48,13 @@ def make_fake_full_name (full_name)
   full_name = full_name.join(' ')
 end
 
-puts make_fake_full_name("Felicia Torres")
+puts "Welcome to the Dev Bootcamp fake name generator for secret agents\n"
+real_name = ""
+until real_name.downcase == "quit"
+  print "Real name:  "
+  real_name = gets.chomp
+  if !["","quit"].include?(real_name.downcase)
+    fake_name = make_fake_full_name(real_name)
+    puts "Fake name:  #{fake_name}"
+  end
+end
