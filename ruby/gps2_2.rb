@@ -64,3 +64,16 @@ grocery_list = add_to_grocery_list(grocery_list, "Ice Cream", 4)
 grocery_list = remove_from_grocery_list(grocery_list, "Lemonade")
 grocery_list = update_quantity_in_grocery_list(grocery_list, "Ice Cream", 1)
 print_grocery_list(grocery_list)
+
+# What did you learn about pseudocode from working on this challenge?
+  # Spending time working through the pseudocode helped get my pair and me on the same page and working from the same playbook.
+# What are the tradeoffs of using arrays and hashes for this challenge?
+  # By using hashes, we were able to directly associate quanitities with items.
+# What does a method return?
+  # A method returns the return of the last call it runs.
+# What kind of things can you pass into methods as arguments?
+  # You can pass pretty much any object into a method as an argument.
+# How can you pass information between methods?
+  # You can pass information between methods with arguments and parameters.
+# What concepts were solidified in this challenge, and what concepts are still confusing?
+  # I'm feeling pretty good about the concepts we applied in this challenge.  I'm curious to learn what other concepts may exist that would be better.
