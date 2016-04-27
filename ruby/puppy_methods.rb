@@ -38,3 +38,30 @@ puppy.speak(3)
 puppy.roll_over
 puts puppy.dog_years(10)
 puppy.play_dead(5)
+
+class Student
+
+  def initialize(name)
+    puts "Welcome to Dev Bootcamp #{name}"
+  end
+
+  def confused(student)
+    puts "#{student} is confused"
+  end
+
+  def eureka(student)
+    puts "#{student} is having a eureka moment!"
+  end
+
+end
+
+all_students = {}
+50.times do |count|
+  all_students["Student #{count+1}"] = Student.new("Student #{count+1}")
+  # all_students["Student #{count+1}"].confused("Student #{count+1}")
+  # all_students["Student #{count+1}"].eureka("Student #{count+1}")
+end
+all_students.each do |name, student|
+  student.confused(name)
+  student.eureka(name)
+end
