@@ -35,22 +35,21 @@ class Santa
 
 end
 
-santa = Santa.new("agender", "black")
-puts "Santa is #{santa.ethnicity}."
-santa.speak
-santa.eat_milk_and_cookies("snickerdoodle")
-santa.celebrate_birthday
-puts "Santa is #{santa.age} years old."
-santa.get_mad_at("Vixen")
-santa.gender = 'bigender'
-puts "I now identify as #{santa.gender}."
+# santa = Santa.new("agender", "black")
+# puts "Santa is #{santa.ethnicity}."
+# santa.speak
+# santa.eat_milk_and_cookies("snickerdoodle")
+# santa.celebrate_birthday
+# puts "Santa is #{santa.age} years old."
+# santa.get_mad_at("Vixen")
+# santa.gender = 'bigender'
+# puts "I now identify as #{santa.gender}."
 
 genders = ["agender", "bigender", "female", "gender fluid", "male", "N/A"]
 ethnicities = ["black", "Japanese-African", "Latino", "Mystical Creature (unicorn)", "prefer not to say", "white", "N/A"]
 
 santas = []
-genders.length.times do |i|
-  ethnicities.length.times do |j|
-    santas << Santa.new(genders[i],ethnicities[j])
-  end
+100.times do
+  santas << Santa.new(genders.sample,ethnicities.sample)
+  rand(140).times {santas.last.celebrate_birthday}
 end
