@@ -37,11 +37,35 @@ class Car
 end
 
 # Diagnostic driver code
-car = Car.new(1987, "Honda", "Prelude", "Red")
-car.rev_engine
-car.honk(2)
-car.drive("Disneyland")
-puts "Car color:  #{car.color}"
-puts "Car year:  #{car.year}"
-puts "Car make:  #{car.make}"
-puts "Car model:  #{car.model}"
+# car = Car.new(1987, "Honda", "Prelude", "Red")
+# car.rev_engine
+# car.honk(2)
+# car.drive("Disneyland")
+# puts "Car color:  #{car.color}"
+# puts "Car year:  #{car.year}"
+# puts "Car make:  #{car.make}"
+# puts "Car model:  #{car.model}"
+
+cars = []
+stop = "yes"
+while ["yes","y"].include?(stop.downcase)
+  puts "Please enter your car information:"
+  print "What is your car's color?  "
+  color = gets.chomp
+  print "What is your car's make?  "
+  make = gets.chomp
+  print "What is your car's model?  "
+  model = gets.chomp
+  print "What is your car's year?  "
+  year = gets.chomp.to_i
+  cars << Car.new(year, make, model, color)
+  print "Would you like to enter the information of another car?  "
+  stop = gets.chomp
+end
+puts "The following cars have been recorded:"
+cars.each do |car|
+      print car.color, " "
+      print car.year, " "
+      print car.make, " "
+      puts car.model
+end
