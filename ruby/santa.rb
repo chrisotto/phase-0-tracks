@@ -1,11 +1,17 @@
 class Santa
+  attr_reader :age, :ethnicity
+  attr_accessor :gender
 
   def initialize(gender, ethnicity)
     puts "Initializing Santa instance ..."
     @gender = gender
+    puts "Gender:  #{@gender}"
     @ethnicity = ethnicity
+    puts "Ethnicity:  #{@ethnicity}"
     @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
+    puts "Reindeer Ranking:  #{@reindeer_ranking.join(', ')}"
     @age = 0
+    puts "Age:  #{@age}"
   end
 
   def speak
@@ -24,21 +30,20 @@ class Santa
   def get_mad_at(reindeer)
     @reindeer_ranking << @reindeer_ranking.delete(reindeer)
     puts "#{@reindeer_ranking.last}, you just got on my naughty list."
-  end
-
-  def gender=(new_gender)
-    @gender = new_gender
-  end
-
-  def age
-    @age
-  end
-
-  def ethnicity
-    @ethnicity
+    puts "Reindeer Ranking:  #{@reindeer_ranking.join(', ')}"
   end
 
 end
+
+santa = Santa.new("agender", "black")
+puts "Santa is #{santa.ethnicity}."
+santa.speak
+santa.eat_milk_and_cookies("snickerdoodle")
+santa.celebrate_birthday
+puts "Santa is #{santa.age} years old."
+santa.get_mad_at("Vixen")
+santa.gender = 'bigender'
+puts "I now identify as #{santa.gender}."
 
 genders = ["agender", "bigender", "female", "gender fluid", "male", "N/A"]
 ethnicities = ["black", "Japanese-African", "Latino", "Mystical Creature (unicorn)", "prefer not to say", "white", "N/A"]
@@ -49,10 +54,3 @@ genders.length.times do |i|
     santas << Santa.new(genders[i],ethnicities[j])
   end
 end
-santas[0].speak
-santas[0].eat_milk_and_cookies("snickerdoodle")
-santas[0].celebrate_birthday
-santas[0].get_mad_at("Vixen")
-puts "I now identify as #{santas[0].gender = 'bigender'}"
-puts "Santa is #{santas[0].age} years old."
-puts "Santa is #{santas[0].ethnicity}."
