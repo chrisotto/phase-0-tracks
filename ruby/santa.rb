@@ -16,6 +16,28 @@ class Santa
     puts "That was a good #{cookie_type}!"
   end
 
+  def celebrate_birthday
+    @age += 1
+    puts "I turned #{@age} years old today!"
+  end
+
+  def get_mad_at(reindeer)
+    @reindeer_ranking << @reindeer_ranking.delete(reindeer)
+    puts "#{@reindeer_ranking.last}, you just got on my naughty list."
+  end
+
+  def gender=(new_gender)
+    @gender = new_gender
+  end
+
+  def age
+    @age
+  end
+
+  def ethnicity
+    @ethnicity
+  end
+
 end
 
 genders = ["agender", "bigender", "female", "gender fluid", "male", "N/A"]
@@ -24,6 +46,13 @@ ethnicities = ["black", "Japanese-African", "Latino", "Mystical Creature (unicor
 santas = []
 genders.length.times do |i|
   ethnicities.length.times do |j|
-    santas << Santa.new(i,j)
+    santas << Santa.new(genders[i],ethnicities[j])
   end
 end
+santas[0].speak
+santas[0].eat_milk_and_cookies("snickerdoodle")
+santas[0].celebrate_birthday
+santas[0].get_mad_at("Vixen")
+puts "I now identify as #{santas[0].gender = 'bigender'}"
+puts "Santa is #{santas[0].age} years old."
+puts "Santa is #{santas[0].ethnicity}."
