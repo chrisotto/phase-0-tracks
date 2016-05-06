@@ -17,3 +17,33 @@ if (horseColors.length == horseNames.length) {
   }
     console.log(horses);
 }
+//Release 2
+//creating a new function called "Car"
+
+function Car(model, year, color, cool) {
+  this.model = model;
+  this.year = year;
+  this.color = color;
+  this.cool = cool;
+
+  this.goFast = function() {
+    console.log(this.model + " is going fast, woah slow down there buddy");
+  };
+}
+
+var porsche = new Car("911", 2015, "red", true);
+var minivan = new Car("an old model", 2002, "beige", false);
+
+console.log(porsche);
+porsche.goFast();
+
+console.log(minivan);
+minivan.goFast();
+
+for (var key in porsche) {
+//  if (porsche.hasOwnProperty(key)) {
+    console.log(key + " -> " + porsche[key]);
+//  }
+}
+
+console.log(Object.keys(porsche).length);
