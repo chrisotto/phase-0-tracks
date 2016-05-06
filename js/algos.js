@@ -5,3 +5,22 @@
 //       Replace the return value with the item
 //     TBD:  Requirements are unclear with regard to how to handle multiple words or phrases that tie for the longest word or phrase.  This function currently returns only the first of the longest words and phrases in the array.
 //   Return the return value
+function longestItem(arrayOfStrings) {
+  returnString = "";
+  for (i = 0 ; i < arrayOfStrings.length; i++) {
+    if (arrayOfStrings[i].length > returnString.length) {
+      returnString = arrayOfStrings[i];
+    }
+  }
+  return returnString;
+}
+
+// TEST CODE for longestItem function
+testArray = ["long phrase","longest phrase","longer phrase"]
+console.log(longestItem(testArray))
+testArray = ["Now is the ","time for all ","good men to "]
+console.log(longestItem(testArray))
+testArray = ["come to the ","aid of their ","country.","longer phrase"]
+console.log(longestItem(testArray))
+testArray.splice(1,1)
+console.log(longestItem(testArray))
