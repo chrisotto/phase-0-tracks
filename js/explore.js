@@ -6,9 +6,11 @@
 function reverse(str) {
   var newStr = "";
   for (var i = 0; i < str.length; i++) {
-    newStr = str[i] + newStr
+    newStr = str[i] + newStr;
   }
-  return newStr
+  return newStr;
 }
 
-console.log(reverse("hello"))
+// console.log(reverse("hello"));
+
+var reversedString = reverse("Howdy Doody");
