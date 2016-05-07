@@ -45,11 +45,26 @@ function keyValueMatch(obj1, obj2) {
 //   Create an empty array for the return value
 //   Create a string of all lowercase letters
 //   While the length of the return value array is less than the integer for length argument
-//     Create an empty string
-//     Loop a random number of times between 1 and 10
+//     Create an empty new string
+//     Create a new string length variable, set to a random number between 1 and 10
+//     Loop a number of times equal to the new string length variable
 //       Select a random character from the string of all lowercase letters and append it to the string
 //     Append the string as a new item to the return value array
 //   Return the return value
+function arrayOfRandomStrings(arrayLength) {
+// TBD:  Requirements are unclear as to how the characters of the strings should vary.  This function currently selects randomly from the lowercase alphabet.
+  returnArray = [];
+  alphabet = "abcdefghijklmnopqrstuvwxyz";
+  while (returnArray.length < arrayLength) {
+    newString = "";
+    newStringLength = Math.ceil(Math.random() * 10)
+    for (i = 0; i < newStringLength; i++) {
+      newString += alphabet[Math.floor(Math.random() * 26)];
+    }
+    returnArray.push(newString);
+  }
+  return returnArray;
+}
 
 
 // TEST CODE for longestItem function
@@ -70,3 +85,8 @@ function keyValueMatch(obj1, obj2) {
 // testObject1.age = 53;
 // if (!keyValueMatch(testObject1, testObject2)) {result = "passed";} else {result = "failed";}
 // console.log("function keyValueMatch test 1:  " + result);
+
+// TEST CODE for arrayOfRandomStrings function
+// console.log(arrayOfRandomStrings(3))
+// console.log(arrayOfRandomStrings(10))
+// console.log(arrayOfRandomStrings(0))
