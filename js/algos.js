@@ -96,3 +96,11 @@ function arrayOfRandomStrings(arrayLength) {
 // console.log(arrayOfRandomStrings(3))
 // console.log(arrayOfRandomStrings(10))
 // console.log(arrayOfRandomStrings(0))
+
+
+// Add driver code that does the following 10 times: generates an array, prints the array, feeds the array to your "longest word" function, and prints the result.
+for (j = 0; j < 10; j++) {
+  tempArray = arrayOfRandomStrings(Math.ceil(Math.random() * 10));
+  console.log(tempArray);
+  console.log(longestItem(tempArray));
+}
