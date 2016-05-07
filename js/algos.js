@@ -24,7 +24,21 @@ function longestItem(arrayOfStrings) {
 //           Set the return value to true
 //           Break
 //   Return the return value
-
+function keyValueMatch(obj1, obj2) {
+  returnValue = false;
+  top:
+  for (var key1 in obj1) {
+    for (var key2 in obj2) {
+      if (key1 == key2) {
+        if (obj1[key1] == obj2[key2]) {
+          returnValue = true;
+          break top;
+        }
+      }
+    }
+  }
+  return returnValue;
+}
 
 // TEST CODE for longestItem function
 // testArray = ["long phrase","longest phrase","longer phrase"]
@@ -35,3 +49,12 @@ function longestItem(arrayOfStrings) {
 // console.log(longestItem(testArray))
 // testArray.splice(1,1)
 // console.log(longestItem(testArray))
+
+// TEST CODE for keyValueMatch function
+// testObject1 = {name: "Steven", age: 54};
+// testObject2 = {name: "Tamir", age: 54};
+// if (keyValueMatch(testObject1, testObject2)) {result = "passed";} else {result = "failed";}
+// console.log("function keyValueMatch test 1:  " + result);
+// testObject1.age = 53;
+// if (!keyValueMatch(testObject1, testObject2)) {result = "passed";} else {result = "failed";}
+// console.log("function keyValueMatch test 1:  " + result);
