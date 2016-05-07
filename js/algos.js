@@ -15,12 +15,23 @@ function longestItem(arrayOfStrings) {
   return returnString;
 }
 
+// Add a function that takes two objects and checks to see if the objects share at least one key-value pair
+//   Create a variable, set to false, for the return value
+//   For each key in the first object
+//     For each key in the second object
+//       If the keys match
+//         If the values match
+//           Set the return value to true
+//           Break
+//   Return the return value
+
+
 // TEST CODE for longestItem function
-testArray = ["long phrase","longest phrase","longer phrase"]
-console.log(longestItem(testArray))
-testArray = ["Now is the ","time for all ","good men to "]
-console.log(longestItem(testArray))
-testArray = ["come to the ","aid of their ","country.","longer phrase"]
-console.log(longestItem(testArray))
-testArray.splice(1,1)
-console.log(longestItem(testArray))
+// testArray = ["long phrase","longest phrase","longer phrase"]
+// console.log(longestItem(testArray))
+// testArray = ["Now is the ","time for all ","good men to "]
+// console.log(longestItem(testArray))
+// testArray = ["come to the ","aid of their ","country.","longer phrase"]
+// console.log(longestItem(testArray))
+// testArray.splice(1,1)
+// console.log(longestItem(testArray))
