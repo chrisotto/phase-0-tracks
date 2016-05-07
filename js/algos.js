@@ -40,28 +40,34 @@ function keyValueMatch(obj1, obj2) {
   return returnValue;
 }
 
+// Add a function that takes an integer for length, and returns a string of the given length, where the characters vary
+//   TBD:  Requirements are unclear as to how the characters should vary.  This function currently selects randomly from the lowercase alphabet.
+//   Create an empty string for the return value
+//   Create a string of all lowercase letters
+//   While the length of the return value string is less than the integer for length argument
+//     Select a random character from the string of all lowercase letters and append it to the string
+//   Return the return value
+function randomString(stringLength) {
+// TBD:  Requirements are unclear as to how the characters should vary.  This function currently selects randomly from the lowercase alphabet.
+  returnString = "";
+  alphabet = "abcdefghijklmnopqrstuvwxyz";
+  while (returnString.length < stringLength) {
+    returnString += alphabet[Math.floor(Math.random() * 26)];
+  }
+  return returnString;
+}
+
 // Add a function that takes an integer for length, and builds and returns an array of strings of the given length, where the strings randomly vary in lengths between 1 and 10 characters, and the characters vary
 //   TBD:  Requirements are unclear as to how the characters of the strings should vary.  This function currently selects randomly from the lowercase alphabet.
 //   Create an empty array for the return value
-//   Create a string of all lowercase letters
 //   While the length of the return value array is less than the integer for length argument
-//     Create an empty new string
-//     Create a new string length variable, set to a random number between 1 and 10
-//     Loop a number of times equal to the new string length variable
-//       Select a random character from the string of all lowercase letters and append it to the string
-//     Append the string as a new item to the return value array
+//     Append a random string of a random length between 1 and 10 characters to the return value array
 //   Return the return value
 function arrayOfRandomStrings(arrayLength) {
 // TBD:  Requirements are unclear as to how the characters of the strings should vary.  This function currently selects randomly from the lowercase alphabet.
   returnArray = [];
-  alphabet = "abcdefghijklmnopqrstuvwxyz";
   while (returnArray.length < arrayLength) {
-    newString = "";
-    newStringLength = Math.ceil(Math.random() * 10)
-    for (i = 0; i < newStringLength; i++) {
-      newString += alphabet[Math.floor(Math.random() * 26)];
-    }
-    returnArray.push(newString);
+    returnArray.push(randomString(Math.ceil(Math.random() * 10)));
   }
   return returnArray;
 }
