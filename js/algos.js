@@ -8,7 +8,7 @@
 function longestItem(arrayOfStrings) {
   returnString = "";
   for (i = 0 ; i < arrayOfStrings.length; i++) {
-    if (arrayOfStrings[i].length > returnString.length) {
+    if (arrayOfStrings[i].length > returnString.length) {  // TBD:  Requirements are unclear with regard to how to handle multiple words or phrases that tie for the longest word or phrase.  This function currently returns only the first of the longest words and phrases in the array.
       returnString = arrayOfStrings[i];
     }
   }
@@ -39,6 +39,18 @@ function keyValueMatch(obj1, obj2) {
   }
   return returnValue;
 }
+
+// Add a function that takes an integer for length, and builds and returns an array of strings of the given length, where the strings randomly vary in lengths between 1 and 10 characters, and the characters vary
+//   TBD:  Requirements are unclear as to how the characters of the strings should vary.  This function currently selects randomly from the lowercase alphabet.
+//   Create an empty array for the return value
+//   Create a string of all lowercase letters
+//   While the length of the return value array is less than the integer for length argument
+//     Create an empty string
+//     Loop a random number of times between 1 and 10
+//       Select a random character from the string of all lowercase letters and append it to the string
+//     Append the string as a new item to the return value array
+//   Return the return value
+
 
 // TEST CODE for longestItem function
 // testArray = ["long phrase","longest phrase","longer phrase"]
