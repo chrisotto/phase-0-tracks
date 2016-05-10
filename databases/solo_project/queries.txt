@@ -31,3 +31,25 @@ sqlite> SELECT * FROM models;
 4|A4|true|1994|2
 6|X3|true|2004|3
 7|Cougar|false|1967|4
+sqlite> DELETE FROM models WHERE name="X3";
+sqlite> SELECT makes.name, models.name, models.in_production, models.first_model_year FROM models JOIN makes ON models.make_id = makes.id;
+Acura|MDX|true|2001
+Acura|NSX|true|1990
+Audi|Q5|true|2009
+Audi|A4|true|1994
+Mercury|Cougar|false|1967
+sqlite> SELECT makes.name, models.name, models.in_production, models.first_model_year FROM models LEFT JOIN makes ON models.make_id = makes.id;
+Acura|MDX|true|2001
+Acura|NSX|true|1990
+Audi|Q5|true|2009
+Audi|A4|true|1994
+Mercury|Cougar|false|1967
+sqlite> SELECT makes.name, models.name, models.in_production, models.first_model_year FROM models RIGHT JOIN makes ON models.make_id = makes.id;
+Error: RIGHT and FULL OUTER JOINs are not currently supported
+sqlite> SELECT makes.name, models.name, models.in_production, models.first_model_year FROM makes LEFT JOIN models ON models.make_id = makes.id;
+Acura|MDX|true|2001
+Acura|NSX|true|1990
+Audi|A4|true|1994
+Audi|Q5|true|2009
+BMW|||
+Mercury|Cougar|false|1967
