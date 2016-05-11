@@ -55,8 +55,36 @@
 #
 # games
 # id (integer primary key)
-# date (date)
+# game_day (date)
 # team1_id (int)
 # team2_id (int)
 # team1_goals (int)
 # team2_goals (int)
+
+require 'sqlite3'
+
+db = SQLite3::Database.new("soccer_season_tracker.db")
+db.results_as_hash = true
+
+db.execute (<<-SQL
+  CREATE TABLE IF NOT EXISTS teams (
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(255),
+  wins INT,
+  losses INT,
+  ties INT
+  )
+SQL
+)
+
+db.execute (<<-SQL
+  CREATE TABLE IF NOT EXISTS games (
+  id INTEGER PRIMARY KEY,
+  game_day DATE,
+  team1_id INT,
+  team2_id INT,
+  team1_goals INT,
+  team2_goals INT
+  )
+SQL
+)
