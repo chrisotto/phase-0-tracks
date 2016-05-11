@@ -25,7 +25,7 @@
 # "Please enter the name of the other playing team:"
 # "Game added to schedule."
 #
-# "Date must be in the form MM/DD/YYY.  Please try again:"
+# "Date must be in the form YYYY-MM-DD.  Please try again:"
 # "The team you entered is not in our system.  Please try again (or type 'add' to add the team to the league):"
 #
 # [3]
@@ -43,3 +43,20 @@
 # [5]
 # "#{date} #{team1} #{goals1}, #{team2} #{goals2}"
 # "#{date} #{team1} vs. #{team2}"
+#
+#
+# Schema Design
+# teams
+# id (integer primary key)
+# name (varchar 255)
+# wins (int)
+# losses (int)
+# ties (int)
+#
+# games
+# id (integer primary key)
+# date (date)
+# team1_id (int)
+# team2_id (int)
+# team1_goals (int)
+# team2_goals (int)
