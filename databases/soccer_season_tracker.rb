@@ -145,6 +145,8 @@ end
 
 # Define a method to add game results, taking a game id, the first team's score, and the second team's score as parameters
 #   Add the scores to the appropriate game in the games table
+#   Set a first team variable to a hash of the first team's data
+#   Set a second team variable to a hash of the second team's data
 #   IF the first team's score is greater than the second team's score
 #     Increment the wins for the first team in the teams table
 #     Increment the losses for the second team in the teams table
@@ -154,6 +156,35 @@ end
 #   ELSE
 #     Increment the ties for the first team in the teams table
 #     Increment the ties for the second team in the teams table
+def add_game_results(game_id, goals1, goals2)
+  $db.execute("UPDATE games SET team1_goals = ?, team2_goals = ? WHERE id = ?", [goals1, goals2, game_id])
+  team1 = $db.execute("SELECT teams.* FROM teams JOIN games ON teams.id = games.team1_id WHERE games.id = ?", game_id).at(0)
+  team2 = $db.execute("SELECT teams.* FROM teams JOIN games ON teams.id = games.team2_id WHERE games.id = ?", game_id).at(0)
+  if goals1 > goals2
+    $db.execute("UPDATE teams SET wins = ? WHERE id = ?", [team1["wins"] + 1, team1["id"]])
+    $db.execute("UPDATE teams SET losses = ? WHERE id = ?", [team2["losses"] + 1, team2["id"]])
+  elsif goals2 > goals1
+    $db.execute("UPDATE teams SET wins = ? WHERE id = ?", [team2["wins"] + 1, team2["id"]])
+    $db.execute("UPDATE teams SET losses = ? WHERE id = ?", [team1["losses"] + 1, team1["id"]])
+  else
+    $db.execute("UPDATE teams SET ties = ? WHERE id = ?", [team1["ties"] + 1, team1["id"]])
+    $db.execute("UPDATE teams SET ties = ? WHERE id = ?", [team2["ties"] + 1, team2["id"]])
+  end
+end
+# [TEST CODE]
+# add_team("Rainbow Jaguars")
+# add_team("Green Pandas")
+# add_team("Purple People Eaters")
+# add_game("2016-05-21", 1, 2)
+# add_game("2016-05-28", 3, 1)
+# add_game("2016-05-07", 1, 3)
+# add_game("2016-05-14", 2, 3)
+# add_game_results(1,1,2)
+# add_game_results(2,2,1)
+# add_game_results(4,1,1)
+# p "[Test 09] :#{$db.execute("SELECT * FROM games")}"
+# p "[Test 10] :#{$db.execute("SELECT * FROM teams")}"
+#
 
 
 # [USER INTERFACE]
