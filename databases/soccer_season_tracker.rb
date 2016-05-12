@@ -392,7 +392,33 @@ end
 
 # Define a method to display standings
 # For each team, display "#{team}:  #{wins} wins, #{losses} losses, #{ties} ties" sorted by wins (most to least)
+def show_standings
+  teams = $db.execute("SELECT * FROM teams ORDER BY wins DESC, losses")
+  teams.each do |team|
+    puts "#{team["name"]}:  #{team["wins"]} wins, #{team["losses"]} losses, #{team["ties"]} ties"
+  end
+end
+# [TEST CODE]
+# add_team("Rainbow Jaguars")
+# add_team("Green Pandas")
+# add_team("Purple People Eaters")
+# add_game("2016-05-21", 1, 2)
+# add_game("2016-05-28", 3, 1)
+# add_game("2016-05-07", 1, 3)
+# add_game("2016-05-14", 2, 3)
+# p "[Test 16] :"
+# show_standings
+# add_game_results(1,1,2)
+# p "[Test 17] :"
+# show_standings
+# add_game_results(2,2,1)
+# p "[Test 18] :"
+# show_standings
+# add_game_results(4,1,1)
+# p "[Test 19] :"
+# show_standings
 #
+
 # Define a method to display schedule
 # For each game without results, display "#{game_day} #{team1} #{goals1}, #{team2} #{goals2}" chronologically sorted
 # For each game with results, display "#{game_day} #{team1} vs. #{team2}" chronologically sorted
