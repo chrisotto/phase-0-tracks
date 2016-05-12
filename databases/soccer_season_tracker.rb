@@ -104,7 +104,21 @@ SQL
 #     RETURN TRUE
 #   ELSE
 #     RETURN FALSE
+def add_team(name)
+  if $db.execute("SELECT id FROM teams WHERE name = ?", name) == []
+    $db.execute("INSERT INTO teams (name, wins, losses, ties) VALUES (?, ?, ?, ?)", [name, 0, 0, 0])
+    return true
+  else
+    return false
+  end
+end
+# [TEST CODE]
+# p "[Test 01] true:#{add_team("Rainbow Jaguars")}"
+# p "[Test 02] false:#{add_team("Rainbow Jaguars")}"
+# p "[Test 03] true:#{add_team("Green Pandas")}"
+# p "[Test 04] :#{$db.execute("SELECT * FROM teams")}"
 #
+
 # Define a method to add a game, taking a date and two team ids as parameters.  RETURN TRUE if the game is added.
 #   IF neither of the teams has a game on that date in the database
 #     Add a row to the games table with the date and team names as values
