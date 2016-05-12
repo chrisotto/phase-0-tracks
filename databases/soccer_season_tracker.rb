@@ -105,7 +105,7 @@ SQL
 #   ELSE
 #     RETURN FALSE
 def add_team(name)
-  if $db.execute("SELECT id FROM teams WHERE name = ?", name) == []
+  if $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", name.downcase) == []
     $db.execute("INSERT INTO teams (name, wins, losses, ties) VALUES (?, ?, ?, ?)", [name, 0, 0, 0])
     return true
   else
@@ -114,7 +114,7 @@ def add_team(name)
 end
 # [TEST CODE]
 # p "[Test 01] true:#{add_team("Rainbow Jaguars")}"
-# p "[Test 02] false:#{add_team("Rainbow Jaguars")}"
+# p "[Test 02] false:#{add_team("rainbow jaguars")}"
 # p "[Test 03] true:#{add_team("Green Pandas")}"
 # p "[Test 04] :#{$db.execute("SELECT * FROM teams")}"
 #
@@ -219,26 +219,94 @@ end
 #     Display "Date must be in the form YYYY-MM-DD.  Please try again:"
 #     Set game day variable to input
 #   Display "Please enter the name of a playing team:"
+# TBD:  REFACTOR into get_team(excluded_team=nil) >>>>>>>>>>
 #   Set team1 variable to input
 #   WHILE team1 variable is not a team in the database
-#     Display "The team you entered is not in our system.  Please try again (or type 'add' to add the team to the league):"
+#     Display "#{team1} is not in our system.  Please try again (or type 'add' to add the team to the league):"
 #     Set temp variable to input
-#     IF temp variable.DOWNCASE is not 'add'
-#       Set team1 variable to temp variable
-#   Set team1 variable to the team id of the team name matching its current value
+#     IF temp variable.DOWNCASE is 'add'
+#       Call method to add a team with team1 as argument
+#     ELSE Set team1 variable to temp variable
+# TBD:  <<<<<<<<<< REFACTOR into get_team(excluded_team=nil)
 #   Display "Please enter the name of the other playing team:"
+# TBD:  REFACTOR into get_team(excluded_team=nil) >>>>>>>>>>
 #   Set team2 variable to input
-#   WHILE team2 variable is not a team in the database
-#     Display "The team you entered is not in our system.  Please try again (or type 'add' to add the team to the league):"
+#   LOOP
+#   IF team1 variable.DOWNCASE is the same as team2 variable.DOWNCASE
+#     Display "A team can't be scheduled to play itself.  Please try again:"
+#     Set team2 variable to input
+#   ELSIF team2 variable is not a team in the database
+#     Display "#{team2} is not in our system.  Please try again (or type 'add' to add the team to the league):"
 #     Set temp variable to input
-#     IF temp variable.DOWNCASE is not 'add'
-#       Set team2 variable to temp variable
+#     IF temp variable.DOWNCASE is 'add'
+#       Call method to add a team with team2 as argument
+#     ELSE Set team2 variable to temp variable
+#   ELSE BREAK
+# TBD:  <<<<<<<<<< REFACTOR into get_team(excluded_team=nil)
+#   Set team1 variable to the team id of the team name matching its current value
 #   Set team2 variable to the team id of the team name matching its current value
-#   IF Call method to add a game with a date and two team names as parameters
+#   IF Call method to add a game with a date and two team ids as arguments
 #     Display "Game added to schedule."
 #   ELSE
 #     Display "Game not added to the schedule.  At least one of the teams is already scheduled to play that day."
+def add_game_ui
+  puts "Please enter a game date:"
+  game_day = gets.chomp
+# TBD:  WHILE game day variable is not a date
+# TBD:    puts "Date must be in the form YYYY-MM-DD.  Please try again:"
+# TBD:    game_day = gets.chomp
+# TBD:  end
+  puts "Please enter the name of a playing team:"
+# TBD:  REFACTOR into get_team(excluded_team=nil) >>>>>>>>>>
+# TBD:  team1 = get_team
+  team1 = gets.chomp
+  while $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team1.downcase) == []
+    puts "#{team1} is not in our system.  Please try again (or type 'add' to add the team to the league):"
+    temp = gets.chomp
+    if temp.downcase == "add"
+      add_team(team1)
+    else
+      team1 = temp
+    end
+  end
+# TBD:  <<<<<<<<<< REFACTOR into get_team(excluded_team=nil)
+  puts "Please enter the name of the other playing team:"
+# TBD:  REFACTOR into get_team(excluded_team=nil) >>>>>>>>>>
+# TBD:  team2 = get_team(team1)
+  team2 = gets.chomp
+  loop do
+    if team1.downcase == team2.downcase
+      puts "#{team1} can't play itself.  Please try again:"
+      team2 = gets.chomp
+    elsif $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team2.downcase) == []
+      puts "#{team2} is not in our system.  Please try again (or type 'add' to add the team to the league):"
+      temp = gets.chomp
+      if temp.downcase == "add"
+        add_team(team2)
+      else
+        team2 = temp
+      end
+    else
+      break
+    end
+  end
+# TBD:  <<<<<<<<<< REFACTOR into get_team(excluded_team=nil)
+  team1 = $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team1.downcase).at(0)["id"]
+  team2 = $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team2.downcase).at(0)["id"]
+  if add_game(game_day, team1, team2)
+    puts "Game added to schedule."
+  else
+    puts "Game not added to the schedule.  At least one of the teams is already scheduled to play that day."
+  end
+end
+# [TEST CODE]
+# add_game_ui
+# p "[Test 12] :#{$db.execute("SELECT * FROM games")}"
+# add_team("Purple People Eaters")
+# add_game_ui
+# p "[Test 13] :#{$db.execute("SELECT * FROM games")}"
 #
+
 # Define a method to solicit and add game results
 #   Display "For which game would you like to enter the results?"
 #   For each game without results, display "[#{id}] #{game_day} #{team1} vs. #{team2}"
