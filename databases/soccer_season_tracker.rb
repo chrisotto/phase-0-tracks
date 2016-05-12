@@ -391,7 +391,7 @@ end
 #
 
 # Define a method to display standings
-# For each team, display "#{team}:  #{wins} wins, #{losses} losses, #{ties} ties" sorted by wins (most to least)
+#   For each team, display "#{team}:  #{wins} wins, #{losses} losses, #{ties} ties" sorted by wins (most to least)
 def show_standings
   teams = $db.execute("SELECT * FROM teams ORDER BY wins DESC, losses")
   teams.each do |team|
@@ -420,9 +420,37 @@ end
 #
 
 # Define a method to display schedule
-# For each game without results, display "#{game_day} #{team1} #{goals1}, #{team2} #{goals2}" chronologically sorted
-# For each game with results, display "#{game_day} #{team1} vs. #{team2}" chronologically sorted
+#   For each game without results, display "#{game_day} #{team1} #{goals1}, #{team2} #{goals2}" chronologically sorted
+#   For each game with results, display "#{game_day} #{team1} vs. #{team2}" chronologically sorted
+def show_schedule
+  games_wo_results = $db.execute("SELECT games.*, team1.name AS name1, team2.name AS name2 FROM games JOIN teams AS team1 ON games.team1_id = team1.id  JOIN teams AS team2 ON games.team2_id = team2.id WHERE games.team1_goals IS ? AND games.team2_goals IS ? ORDER BY game_day", [nil, nil])
+  games_wo_results.each do |game|
+    puts "#{game["game_day"]}  #{game["name1"]} vs. #{game["name2"]}"
+  end
+  games_w_results = $db.execute("SELECT games.*, team1.name AS name1, team2.name AS name2 FROM games JOIN teams AS team1 ON games.team1_id = team1.id  JOIN teams AS team2 ON games.team2_id = team2.id WHERE games.team1_goals IS NOT ? OR games.team2_goals IS NOT ? ORDER BY game_day", [nil, nil])
+  games_w_results.each do |game|
+    puts "#{game["game_day"]}  #{game["name1"]} #{game["team1_goals"]}, #{game["name2"]} #{game["team2_goals"]}"
+  end
+end
+# [TEST CODE]
+# add_team("Rainbow Jaguars")
+# add_team("Green Pandas")
+# add_team("Purple People Eaters")
+# add_game("2016-05-21", 1, 2)
+# add_game("2016-05-28", 3, 1)
+# add_game("2016-05-07", 1, 3)
+# add_game("2016-05-14", 2, 3)
+# p "[Test 20] :"
+# show_schedule
+# add_game_results(1,1,2)
+# p "[Test 21] :"
+# show_schedule
+# add_game_results(2,2,1)
+# add_game_results(4,1,1)
+# p "[Test 22] :"
+# show_schedule
 #
+
 # Define a method to display the program's functions and enable the user to initiate one.  RETURN TRUE unless the user initiates "Quit."
 #   Display
 #     "What would you like to do?"
