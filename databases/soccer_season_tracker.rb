@@ -9,12 +9,12 @@
 # "Welcome to the 2015-2016 soccer season!"
 #
 # "What would you like to do?"
-# "[1] Add a team to the league."
-# "[2] Add a game to the schedule."
-# "[3] Enter the results of a game."
-# "[4] Display the team standings."
-# "[5] Display the game schedule."
-# "[6] Quit."
+# "[ 1 ] Add a team to the league."
+# "[ 2 ] Add a game to the schedule."
+# "[ 3 ] Enter the results of a game."
+# "[ 4 ] Display the team standings."
+# "[ 5 ] Display the game schedule."
+# "[ 6 ] Quit."
 # "Please enter a number:  "
 #
 # [1]
@@ -454,12 +454,14 @@ end
 # Define a method to display the program's functions and enable the user to initiate one.  RETURN TRUE unless the user initiates "Quit."
 #   Display
 #     "What would you like to do?"
+# TBD:  REFACTOR into functions array and EACH statement >>>>>>>>>>
 #     "[1] Add a team to the league."
 #     "[2] Add a game to the schedule."
 #     "[3] Enter the results of a game."
 #     "[4] Display the team standings."
 #     "[5] Display the game schedule."
 #     "[6] Quit."
+# TBD:  <<<<<<<<<< REFACTOR into functions array and EACH statement
 #     "Please enter a number:  "
 #   Get input and convert it to an integer
 #   WHILE input variable is not between 1 and 6
@@ -479,7 +481,44 @@ end
 #     RETURN FALSE
 #   ELSE
 #     RETURN TRUE
-
+def main_menu
+  puts "What would you like to do?"
+# TBD:  REFACTOR into functions array and EACH statement >>>>>>>>>>
+  puts "[ 1 ] Add a team to the league."
+  puts "[ 2 ] Add a game to the schedule."
+  puts "[ 3 ] Enter the results of a game."
+  puts "[ 4 ] Display the team standings."
+  puts "[ 5 ] Display the game schedule."
+  puts "[ 6 ] Quit."
+# TBD:  <<<<<<<<<< REFACTOR into functions array and EACH statement
+  print "Please enter a number:  "
+  function = gets.chomp.to_i
+  while !(1..6).include?(function)
+    puts "Please enter a number between 1 and 6:"
+    function = gets.chomp.to_i
+  end
+  case function
+  when 1
+    add_team_ui
+  when 2
+    add_game_ui
+  when 3
+    add_game_results_ui
+  when 4
+    show_standings
+  when 5
+    show_schedule
+  end
+  if function == 6
+    false
+  else
+    true
+  end
+end
+# [TEST CODE]
+# p "[Test 23 — Enter a number between 1 and 5] true:#{main_menu}"
+# p "[Test 24 — Enter 6] false:#{main_menu}"
+#
 
 # [DRIVER CODE]
 #
