@@ -125,7 +125,24 @@ end
 #     RETURN TRUE
 #   ELSE
 #     RETURN FALSE
+def add_game(game_day, team1, team2)
+  if $db.execute("SELECT id FROM games WHERE game_day = ? AND (team1_id = ? OR team1_id = ? OR team2_id = ? OR team2_id = ?)", [game_day, team1, team2, team1, team2]) == []
+    $db.execute("INSERT INTO games (game_day, team1_id, team2_id) VALUES (?, ?, ?)", [game_day, team1, team2])
+    return true
+  else
+    return false
+  end
+end
+# [TEST CODE]
+# add_team("Rainbow Jaguars")
+# add_team("Green Pandas")
+# p "[Test 05] true:#{add_game("2016-05-21", 1, 2)}"
+# add_team("Purple People Eaters")
+# p "[Test 06] false:#{add_game("2016-05-21", 3, 2)}"
+# p "[Test 07] true:#{add_game("2016-05-28", 1, 3)}"
+# p "[Test 08] :#{$db.execute("SELECT * FROM games")}"
 #
+
 # Define a method to add game results, taking a game id, the first team's score, and the second team's score as parameters
 #   Add the scores to the appropriate game in the games table
 #   IF the first team's score is greater than the second team's score
