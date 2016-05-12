@@ -196,7 +196,22 @@ end
 #     Display "#{input} added to league."
 #   ELSE
 #     Display "#{input} is already in the league."
+def add_team_ui
+  puts "Please enter the name of a participating team:"
+  team_name = gets.chomp
+  if add_team(team_name)
+    puts "#{team_name} added to league."
+  else
+    puts "#{team_name} is already in the league."
+  end
+end
+# [TEST CODE]
+# add_team_ui
+# add_team_ui
+# add_team_ui
+# p "[Test 11] :#{$db.execute("SELECT * FROM teams")}"
 #
+
 # Define a method to solicit and add a game
 #   Display "Please enter a game date:"
 #   Set game day variable to input
