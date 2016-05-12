@@ -28,11 +28,11 @@
 # "Game added to schedule."
 #
 # "Date must be in the form YYYY-MM-DD.  Please try again:"
-# "The team you entered is not in our system.  Please try again (or type 'add' to add the team to the league):"
+# "#{team} is not in our system.  Please try again (or type 'add' to add the team to the league):"
 #
 # [3]
-# "For which game would you like to enter the results?"
-# "[#] #{game_day} #{team1} vs. #{team2}"
+# "For which game would you like to enter results?"
+# "[ # ]  #{game_day}  #{team1} vs. #{team2}"
 # "Please enter a number:"
 # "How many goals did the #{team1} score?"
 # "How many goals did the #{team2} score?"
@@ -308,26 +308,88 @@ end
 #
 
 # Define a method to solicit and add game results
-#   Display "For which game would you like to enter the results?"
-#   For each game without results, display "[#{id}] #{game_day} #{team1} vs. #{team2}"
+#   Display "For which game would you like to enter results?"
+#   Set a games variable to an array of hashes of the data for games without results
+#   Set a game ids variable to an empty array
+#   For each game without results
+#     Display "[ #{id} ]  #{game_day}  #{team1} vs. #{team2}"
+#     Append #{id} to game ids array
 #   Display "Please enter a number:"
 #   Set game id to input and convert it to an integer
-#   WHILE game id is not in the database
+#   WHILE game id is not in the game ids array
 #     Display "Please enter the number of a game listed above:"
 #     Set game id to input and convert it to an integer
 #   Display "How many goals did the #{team1} score?"
-#   Set a variable for the first team's goals to input and convert it to an integer
+# TBD:  REFACTOR into get_goals >>>>>>>>>>
+#   Set a variable for the first team's goals to input
 #   WHILE the variable for the first team's goals is not a whole number
 #     Display "Score must be a whole number.  Please try again:"
 #     Set the variable for the first team's goals to input and convert it to an integer
+#   Convert variable for the first team's goals to an integer
+# TBD:  <<<<<<<<<< REFACTOR into get_goals
+# TBD:  REFACTOR into get_goals >>>>>>>>>>
 #   Display "How many goals did the #{team2} score?"
-#   Set a variable for the second team's goals to input and convert it to an integer
+#   Set a variable for the second team's goals to input
 #   WHILE the variable for the second team's goals is not a whole number
 #     Display "Score must be a whole number.  Please try again:"
 #     Set the variable for the second team's goals to input and convert it to an integer
+#   Convert variable for the second team's goals to an integer
+# TBD:  <<<<<<<<<< REFACTOR into get_goals
 #   Call method to add game results with the game id, first team's goals and second team's goals as arguments
 #   Display "Results added to game."
+def add_game_results_ui
+  puts "For which game would you like to enter results?"
+  games = $db.execute("SELECT games.*, team1.name AS name1, team2.name AS name2 FROM games JOIN teams AS team1 ON games.team1_id = team1.id  JOIN teams AS team2 ON games.team2_id = team2.id WHERE games.team1_goals IS ? AND games.team2_goals IS ?", [nil, nil])
+  game_ids = []
+  games.each do |game|
+    puts "[ #{game["id"]} ]  #{game["game_day"]}  #{game["name1"]} vs. #{game["name2"]}"
+    game_ids << game["id"]
+  end
+  puts "Please enter a number:"
+  game_id = gets.chomp.to_i
+  while !game_ids.include?(game_id)
+    puts "Please enter the number of a game listed above:"
+    game_id = gets.chomp.to_i
+  end
+  puts "How many goals did the #{games[game_ids.index(game_id)]["name1"]} score?"
+# TBD:  REFACTOR into get_goals >>>>>>>>>>
+# TBD:  goals1 = get_goals
+  goals1 = gets.chomp
+  while goals1 !~ /^\d+$/
+    puts "Score must be a whole number.  Please try again:"
+    goals1 = gets.chomp
+  end
+  goals1 = goals1.to_i
+# TBD:  <<<<<<<<<< REFACTOR into get_goals
+  puts "How many goals did the #{games[game_ids.index(game_id)]["name2"]} score?"
+# TBD:  REFACTOR into get_goals >>>>>>>>>>
+# TBD:  goals2 = get_goals
+  goals2 = gets.chomp
+  while  goals2 !~ /^\d+$/
+    puts "Score must be a whole number.  Please try again:"
+    goals2 = gets.chomp
+  end
+  goals2 = goals2.to_i
+# TBD:  <<<<<<<<<< REFACTOR into get_goals
+  add_game_results(game_id, goals1, goals2)
+  puts "Results added to game."
+end
+# [TEST CODE]
+# add_team("Rainbow Jaguars")
+# add_team("Green Pandas")
+# add_team("Purple People Eaters")
+# add_game("2016-05-21", 1, 2)
+# add_game("2016-05-28", 3, 1)
+# add_game("2016-05-07", 1, 3)
+# add_game("2016-05-14", 2, 3)
+# add_game_results(1,1,2)
+# add_game_results(2,2,1)
+# add_game_results(4,1,1)
+# add_game_results_ui
+# p "[Test 14] :#{$db.execute("SELECT * FROM games")}"
+# p "[Test 15] :#{$db.execute("SELECT * FROM teams")}"
 #
+
 # Define a method to display standings
 # For each team, display "#{team}:  #{wins} wins, #{losses} losses, #{ties} ties" sorted by wins (most to least)
 #
