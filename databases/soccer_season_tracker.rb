@@ -1,4 +1,4 @@
-# [REQUIRMENTS]
+# [REQUIREMENTS]
 #
 # Allow a user to add a soccer team to the league
 # Allow a user to add a game with a date and teams
@@ -88,7 +88,9 @@ $db.execute (<<-SQL
   team1_id INT,
   team2_id INT,
   team1_goals INT,
-  team2_goals INT
+  team2_goals INT,
+  FOREIGN KEY (team1_id) REFERENCES teams(id),
+  FOREIGN KEY (team2_id) REFERENCES teams(id)
   )
 SQL
 )
