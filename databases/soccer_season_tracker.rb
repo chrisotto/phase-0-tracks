@@ -525,3 +525,6 @@ end
 # Display "Welcome to the 2015-2016 soccer season!"
 #
 # WHILE Call method to display the program's functions and enable the user to initiate one
+puts "Welcome to the 2015-2016 soccer season!"
+while main_menu
+end
