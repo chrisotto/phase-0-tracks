@@ -212,6 +212,47 @@ end
 # p "[Test 11] :#{$db.execute("SELECT * FROM teams")}"
 #
 
+# Define a method to solicit and return a team name for a game, taking a team name that should not be accepted as an optional parameter
+#   Set team variable to input
+#   LOOP
+#   IF the team variable is an empty string
+#     Display "#{unaccetable team name} can't play itself.  Please try again:"
+#     Set team variable to input
+#   ELSIF the team variable.DOWNCASE is the same as the unaccetable team name.DOWNCASE
+#     Display "#{unaccetable team name} can't play itself.  Please try again:"
+#     Set team variable to input
+#   ELSIF team variable is not a team in the database
+#     Display "#{team} is not in our system.  Please try again (or type 'add' to add the team to the league):"
+#     Set temp variable to input
+#     IF temp variable.DOWNCASE is 'add'
+#       Call method to add a team with team variable as argument
+#     ELSE Set team variable to temp variable
+#   ELSE
+#     Return the team variable
+def get_team_name_for_game(excluded_team="")
+  team = gets.chomp
+  loop do
+    if team == ""
+      puts "You must enter a team name.  Please try again:"
+      team = gets.chomp
+    elsif team.downcase == excluded_team.downcase
+      puts "#{excluded_team} can't play itself.  Please try again:"
+      team = gets.chomp
+    elsif $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team.downcase) == []
+      puts "#{team} is not in our system.  Please try again (or type 'add' to add the team to the league):"
+      temp = gets.chomp
+      if temp.downcase == "add"
+        add_team(team)
+      else
+        team = temp
+      end
+    else
+      return team
+    end
+  end
+end
+#
+
 # Define a method to solicit and add a game
 #   Display "Please enter a game date:"
 #   Set game day variable to input
@@ -219,32 +260,11 @@ end
 #     Display "Date must be in the form YYYY-MM-DD.  Please try again:"
 #     Set game day variable to input
 #   Display "Please enter the name of a playing team:"
-# TBD:  REFACTOR into get_team(excluded_team=nil) >>>>>>>>>>
-#   Set team1 variable to input
-#   WHILE team1 variable is not a team in the database
-#     Display "#{team1} is not in our system.  Please try again (or type 'add' to add the team to the league):"
-#     Set temp variable to input
-#     IF temp variable.DOWNCASE is 'add'
-#       Call method to add a team with team1 as argument
-#     ELSE Set team1 variable to temp variable
-# TBD:  <<<<<<<<<< REFACTOR into get_team(excluded_team=nil)
+#   Set a team1 name variable by calling the method to solicit and return a team name from the user
 #   Display "Please enter the name of the other playing team:"
-# TBD:  REFACTOR into get_team(excluded_team=nil) >>>>>>>>>>
-#   Set team2 variable to input
-#   LOOP
-#   IF team1 variable.DOWNCASE is the same as team2 variable.DOWNCASE
-#     Display "A team can't be scheduled to play itself.  Please try again:"
-#     Set team2 variable to input
-#   ELSIF team2 variable is not a team in the database
-#     Display "#{team2} is not in our system.  Please try again (or type 'add' to add the team to the league):"
-#     Set temp variable to input
-#     IF temp variable.DOWNCASE is 'add'
-#       Call method to add a team with team2 as argument
-#     ELSE Set team2 variable to temp variable
-#   ELSE BREAK
-# TBD:  <<<<<<<<<< REFACTOR into get_team(excluded_team=nil)
-#   Set team1 variable to the team id of the team name matching its current value
-#   Set team2 variable to the team id of the team name matching its current value
+#   Set a team2 name variable by calling the method to solicit and return a team name from the user with the team1 name as an argument
+#   Set a team1 id variable to the team id of the team name matching the team1 name variable
+#   Set a team2 id variable to the team id of the team name matching the team2 name variable
 #   IF Call method to add a game with a date and two team ids as arguments
 #     Display "Game added to schedule."
 #   ELSE
@@ -257,43 +277,12 @@ def add_game_ui
 # TBD:    game_day = gets.chomp
 # TBD:  end
   puts "Please enter the name of a playing team:"
-# TBD:  REFACTOR into get_team(excluded_team=nil) >>>>>>>>>>
-# TBD:  team1 = get_team
-  team1 = gets.chomp
-  while $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team1.downcase) == []
-    puts "#{team1} is not in our system.  Please try again (or type 'add' to add the team to the league):"
-    temp = gets.chomp
-    if temp.downcase == "add"
-      add_team(team1)
-    else
-      team1 = temp
-    end
-  end
-# TBD:  <<<<<<<<<< REFACTOR into get_team(excluded_team=nil)
+  team1_name = get_team_name_for_game
   puts "Please enter the name of the other playing team:"
-# TBD:  REFACTOR into get_team(excluded_team=nil) >>>>>>>>>>
-# TBD:  team2 = get_team(team1)
-  team2 = gets.chomp
-  loop do
-    if team1.downcase == team2.downcase
-      puts "#{team1} can't play itself.  Please try again:"
-      team2 = gets.chomp
-    elsif $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team2.downcase) == []
-      puts "#{team2} is not in our system.  Please try again (or type 'add' to add the team to the league):"
-      temp = gets.chomp
-      if temp.downcase == "add"
-        add_team(team2)
-      else
-        team2 = temp
-      end
-    else
-      break
-    end
-  end
-# TBD:  <<<<<<<<<< REFACTOR into get_team(excluded_team=nil)
-  team1 = $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team1.downcase).at(0)["id"]
-  team2 = $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team2.downcase).at(0)["id"]
-  if add_game(game_day, team1, team2)
+  team2_name = get_team_name_for_game(team1_name)
+  team1_id = $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team1_name.downcase).at(0)["id"]
+  team2_id = $db.execute("SELECT id FROM teams WHERE LOWER(name) = ?", team2_name.downcase).at(0)["id"]
+  if add_game(game_day, team1_id, team2_id)
     puts "Game added to schedule."
   else
     puts "Game not added to the schedule.  At least one of the teams is already scheduled to play that day."
