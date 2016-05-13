@@ -296,6 +296,22 @@ end
 # p "[Test 13] :#{$db.execute("SELECT * FROM games")}"
 #
 
+# Define a method to solicit and return goals
+#   Set a variable for the team's goals to input
+#   WHILE the variable for the team's goals is not a whole number
+#     Display "Score must be a whole number.  Please try again:"
+#     Set the variable for the team's goals to input
+#   Convert variable for the second team's goals to an integer
+def get_goals_for_game
+  goals = gets.chomp
+  while  goals !~ /^\d+$/
+    puts "Score must be a whole number.  Please try again:"
+    goals = gets.chomp
+  end
+  goals = goals.to_i
+end
+#
+
 # Define a method to solicit and add game results
 #   Display "For which game would you like to enter results?"
 #   Set a games variable to an array of hashes of the data for games without results
@@ -309,21 +325,9 @@ end
 #     Display "Please enter the number of a game listed above:"
 #     Set game id to input and convert it to an integer
 #   Display "How many goals did the #{team1} score?"
-# TBD:  REFACTOR into get_goals >>>>>>>>>>
-#   Set a variable for the first team's goals to input
-#   WHILE the variable for the first team's goals is not a whole number
-#     Display "Score must be a whole number.  Please try again:"
-#     Set the variable for the first team's goals to input and convert it to an integer
-#   Convert variable for the first team's goals to an integer
-# TBD:  <<<<<<<<<< REFACTOR into get_goals
-# TBD:  REFACTOR into get_goals >>>>>>>>>>
+#   Set team1 goals by calling the method to solicit and return the score from the user
 #   Display "How many goals did the #{team2} score?"
-#   Set a variable for the second team's goals to input
-#   WHILE the variable for the second team's goals is not a whole number
-#     Display "Score must be a whole number.  Please try again:"
-#     Set the variable for the second team's goals to input and convert it to an integer
-#   Convert variable for the second team's goals to an integer
-# TBD:  <<<<<<<<<< REFACTOR into get_goals
+#   Set team2 goals by calling the method to solicit and return the score from the user
 #   Call method to add game results with the game id, first team's goals and second team's goals as arguments
 #   Display "Results added to game."
 def add_game_results_ui
@@ -341,25 +345,9 @@ def add_game_results_ui
     game_id = gets.chomp.to_i
   end
   puts "How many goals did the #{games[game_ids.index(game_id)]["name1"]} score?"
-# TBD:  REFACTOR into get_goals >>>>>>>>>>
-# TBD:  goals1 = get_goals
-  goals1 = gets.chomp
-  while goals1 !~ /^\d+$/
-    puts "Score must be a whole number.  Please try again:"
-    goals1 = gets.chomp
-  end
-  goals1 = goals1.to_i
-# TBD:  <<<<<<<<<< REFACTOR into get_goals
+  goals1 = get_goals_for_game
   puts "How many goals did the #{games[game_ids.index(game_id)]["name2"]} score?"
-# TBD:  REFACTOR into get_goals >>>>>>>>>>
-# TBD:  goals2 = get_goals
-  goals2 = gets.chomp
-  while  goals2 !~ /^\d+$/
-    puts "Score must be a whole number.  Please try again:"
-    goals2 = gets.chomp
-  end
-  goals2 = goals2.to_i
-# TBD:  <<<<<<<<<< REFACTOR into get_goals
+  goals2 = get_goals_for_game
   add_game_results(game_id, goals1, goals2)
   puts "Results added to game."
 end
